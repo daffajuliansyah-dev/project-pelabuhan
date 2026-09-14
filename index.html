@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071525">
+  <meta name="description" content="PORTARA - Sistem Informasi Pelabuhan Digital dengan tiga role pengguna dan lima layanan terintegrasi.">
+  <title>PORTARA — Smart Port Command Center</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <section id="loginScreen" class="login-screen">
+    <div class="login-nav">
+      <a class="brand" href="#" aria-label="PORTARA">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span><strong>PORTARA</strong><small>SMART PORT SYSTEM</small></span>
+      </a>
+      <div class="system-chip"><i></i> Sistem Online</div>
+    </div>
+
+    <div class="login-grid">
+      <div class="login-visual">
+        <div class="eyebrow"><span>01</span> DIGITAL PORT EXPERIENCE</div>
+        <h1>Pelabuhan cerdas,<br><em>semua terkendali.</em></h1>
+        <p>Kelola operasional, perjalanan, dokumen, dan pembayaran melalui satu command center yang cepat, aman, dan modern.</p>
+
+        <div class="port-scene" id="portScene">
+          <div class="scene-sky">
+            <div class="scene-orbit orbit-a"></div>
+            <div class="scene-orbit orbit-b"></div>
+            <div class="scene-sun"></div>
+          </div>
+          <div class="scene-hud hud-left">
+            <small>KAPAL AKTIF</small>
+            <strong>24</strong>
+            <span><i></i> +8% hari ini</span>
+          </div>
+          <div class="scene-hud hud-right">
+            <small>ON-TIME RATE</small>
+            <strong>96.8%</strong>
+            <span>Operasional optimal</span>
+          </div>
+          <div class="crane crane-one"><i></i><b></b><span></span></div>
+          <div class="crane crane-two"><i></i><b></b><span></span></div>
+          <div class="container-stack stack-a"><i></i><i></i><i></i></div>
+          <div class="container-stack stack-b"><i></i><i></i></div>
+          <div class="ship-3d">
+            <div class="ship-deck"><i></i><i></i><i></i><i></i></div>
+            <div class="ship-cabin"><span></span><span></span></div>
+            <div class="ship-body"><strong>PORTARA 08</strong></div>
+          </div>
+          <div class="scene-water">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="scan-line"></div>
+        </div>
+
+        <div class="trust-row">
+          <span><b>256-bit</b> Secure System</span>
+          <span><b>24/7</b> Live Monitoring</span>
+          <span><b>3 Role</b> Access Control</span>
+        </div>
+      </div>
+
+      <div class="login-panel glass-card">
+        <div class="panel-top">
+          <span class="step-label">AKSES SISTEM</span>
+          <span class="demo-badge">DEMO MODE</span>
+        </div>
+        <h2>Pilih ruang kerja</h2>
+        <p>Setiap pengguna mendapatkan dashboard dan hak akses yang berbeda.</p>
+
+        <div class="role-list">
+          <button class="role-card active" data-role-option="admin" type="button">
+            <span class="role-icon admin-icon">A</span>
+            <span class="role-copy"><strong>Administrator</strong><small>Kontrol penuh sistem & analitik</small></span>
+            <span class="role-check">✓</span>
+          </button>
+          <button class="role-card" data-role-option="customer" type="button">
+            <span class="role-icon customer-icon">C</span>
+            <span class="role-copy"><strong>Customer</strong><small>Booking, tiket, tracking & tagihan</small></span>
+            <span class="role-check">✓</span>
+          </button>
+          <button class="role-card" data-role-option="operator" type="button">
+            <span class="role-icon operator-icon">P</span>
+            <span class="role-copy"><strong>Petugas Pelabuhan</strong><small>Validasi & operasional lapangan</small></span>
+            <span class="role-check">✓</span>
+          </button>
+        </div>
+
+        <button id="loginButton" class="primary-btn login-btn" type="button">
+          <span>Masuk sebagai Administrator</span>
+          <b>→</b>
+        </button>
+        <div class="login-foot"><span>●</span> Mode presentasi — tidak memerlukan password</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="appShell" class="app-shell is-hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <a class="brand compact" href="#">
+          <span class="brand-mark"><span></span><span></span><span></span></span>
+          <span><strong>PORTARA</strong><small>COMMAND CENTER</small></span>
+        </a>
+        <button class="icon-btn sidebar-close" id="sidebarClose" aria-label="Tutup menu">×</button>
+      </div>
+
+      <div class="role-profile">
+        <div class="profile-avatar" id="sidebarAvatar">A</div>
+        <div><strong id="sidebarName">Administrator</strong><span id="sidebarRole">Super Admin</span></div>
+        <i class="online-dot"></i>
+      </div>
+
+      <nav class="main-nav" id="mainNav">
+        <small>OVERVIEW</small>
+        <button class="nav-item active" data-page-target="dashboard" data-roles="admin,customer,operator">
+          <span class="nav-icon">⌂</span><span>Dashboard</span>
+        </button>
+
+        <small>SMART SERVICES</small>
+        <button class="nav-item" data-page-target="booking" data-roles="admin,customer,operator">
+          <span class="nav-icon">▦</span><span>Jadwal & Booking</span><b class="nav-count">8</b>
+        </button>
+        <button class="nav-item" data-page-target="tracking" data-roles="admin,customer,operator">
+          <span class="nav-icon">⌖</span><span>Tracking Kapal</span><i class="live-dot"></i>
+        </button>
+        <button class="nav-item" data-page-target="tickets" data-roles="admin,customer,operator">
+          <span class="nav-icon">▣</span><span>E-Ticket & QR</span>
+        </button>
+        <button class="nav-item" data-page-target="billing" data-roles="admin,customer">
+          <span class="nav-icon">◇</span><span>Tagihan Digital</span><b class="nav-count warning">2</b>
+        </button>
+        <button class="nav-item" data-page-target="service" data-roles="admin,customer,operator">
+          <span class="nav-icon">◎</span><span>Pusat Layanan</span>
+        </button>
+
+        <small data-admin-only>MANAGEMENT</small>
+        <button class="nav-item" data-page-target="users" data-roles="admin">
+          <span class="nav-icon">♙</span><span>Manajemen User</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-help">
+        <div class="help-orbit">?</div>
+        <strong>Butuh bantuan?</strong>
+        <span>Tim command center aktif 24/7.</span>
+        <button type="button" data-open-service>Hubungi operator</button>
+      </div>
+
+      <button id="logoutButton" class="logout-btn" type="button"><span>↪</span> Keluar dari sistem</button>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
+          <div>
+            <span id="greeting">Selamat malam</span>
+            <h2 id="pageTitle">Command Center</h2>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div class="port-status"><span class="pulse-dot"></span><div><small>STATUS PELABUHAN</small><b>Operasional Normal</b></div></div>
+          <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Ubah tema">◐</button>
+          <button class="icon-btn notification-btn" id="notificationButton" aria-label="Notifikasi">♢<b>3</b></button>
+          <div class="top-profile">
+            <div class="profile-avatar small" id="topAvatar">A</div>
+            <div><strong id="topName">Administrator</strong><span id="topRole">Super Admin</span></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="notification-panel glass-card" id="notificationPanel">
+        <div class="notification-head"><strong>Notifikasi</strong><button type="button" id="markRead">Tandai dibaca</button></div>
+        <div class="notice unread"><i class="blue"></i><div><strong>KM Nusantara tiba lebih awal</strong><span>Estimasi sandar berubah menjadi 21.30</span><small>2 menit lalu</small></div></div>
+        <div class="notice unread"><i class="orange"></i><div><strong>Tagihan baru diterbitkan</strong><span>Invoice INV-240918 siap diperiksa</span><small>14 menit lalu</small></div></div>
+        <div class="notice unread"><i class="green"></i><div><strong>Validasi tiket berhasil</strong><span>Gate B memvalidasi 32 penumpang</span><small>28 menit lalu</small></div></div>
+      </div>
+
+      <div class="content-area">
+        <section class="page active" data-page="dashboard">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <div class="eyebrow light"><span>LIVE</span> PORT INTELLIGENCE</div>
+              <h1 id="heroTitle">Selamat datang di pusat kendali.</h1>
+              <p id="heroDescription">Pantau seluruh aktivitas pelabuhan secara real-time dari satu dashboard.</p>
+              <div class="hero-actions">
+                <button class="light-btn" type="button" data-quick-page="booking"><span>＋</span> Buat booking</button>
+                <button class="ghost-btn" type="button" data-quick-page="tracking"><span>⌖</span> Lihat live map</button>
+              </div>
+            </div>
+            <div class="hero-port">
+              <div class="radar">
+                <span class="radar-ring ring-one"></span>
+                <span class="radar-ring ring-two"></span>
+                <span class="radar-ring ring-three"></span>
+                <span class="radar-sweep"></span>
+                <i class="radar-point p1"></i><i class="radar-point p2"></i><i class="radar-point p3"></i>
+                <div class="radar-ship">▲</div>
+              </div>
+              <div class="hero-kpi"><small>Efisiensi Operasional</small><strong>96.8%</strong><span>↑ 4.2% bulan ini</span></div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card tilt-card">
+              <div class="stat-head"><span class="stat-icon cyan">⚓</span><small>LIVE</small></div>
+              <span>Kapal di Area</span><strong data-counter="24">0</strong>
+              <div class="stat-foot positive">↑ 8% <em>dari kemarin</em></div>
+            </article>
+            <article class="stat-card tilt-card">
+              <div class="stat-head"><span class="stat-icon violet">▦</span><small>HARI INI</small></div>
+              <span>Jadwal Sandar</span><strong data-counter="18">0</strong>
+              <div class="stat-foot positive">↑ 3 jadwal <em>terkonfirmasi</em></div>
+            </article>
+            <article class="stat-card tilt-card">
+              <div class="stat-head"><span class="stat-icon orange">▣</span><small>VALID</small></div>
+              <span>E-Ticket Terbit</span><strong data-counter="1482">0</strong>
+              <div class="stat-foot positive">96% <em>sudah tervalidasi</em></div>
+            </article>
+            <article class="stat-card tilt-card">
+              <div class="stat-head"><span class="stat-icon green">✓</span><small>SLA</small></div>
+              <span>Ketepatan Waktu</span><strong><span data-counter="97">0</span>%</strong>
+              <div class="stat-foot positive">↑ 2.4% <em>performa naik</em></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel-card chart-card">
+              <div class="card-heading">
+                <div><span>Arus Penumpang</span><h3>Pergerakan 7 Hari</h3></div>
+                <select aria-label="Periode grafik"><option>Minggu ini</option><option>Bulan ini</option></select>
+              </div>
+              <div class="chart-summary"><strong>12.840</strong><span><b>+12.5%</b> dibanding minggu lalu</span></div>
+              <div class="bar-chart" aria-label="Grafik arus penumpang">
+                <div style="--value:58%"><i>Sen</i><span></span><b>1.4K</b></div>
+                <div style="--value:72%"><i>Sel</i><span></span><b>1.8K</b></div>
+                <div style="--value:66%"><i>Rab</i><span></span><b>1.6K</b></div>
+                <div style="--value:86%"><i>Kam</i><span></span><b>2.2K</b></div>
+                <div style="--value:78%"><i>Jum</i><span></span><b>2.0K</b></div>
+                <div class="today" style="--value:96%"><i>Sab</i><span></span><b>2.5K</b></div>
+                <div style="--value:52%"><i>Min</i><span></span><b>1.3K</b></div>
+              </div>
+            </article>
+
+            <article class="panel-card berth-card">
+              <div class="card-heading"><div><span>Dermaga</span><h3>Status Kapasitas</h3></div><button class="text-btn" type="button" data-quick-page="booking">Lihat semua →</button></div>
+              <div class="berth-list">
+                <div><span><i class="berth-color cyan"></i><b>Dermaga A</b></span><em>8 / 10 slot</em><progress value="80" max="100"></progress></div>
+                <div><span><i class="berth-color violet"></i><b>Dermaga B</b></span><em>6 / 12 slot</em><progress class="violet-progress" value="50" max="100"></progress></div>
+                <div><span><i class="berth-color orange"></i><b>Dermaga C</b></span><em>9 / 10 slot</em><progress class="orange-progress" value="90" max="100"></progress></div>
+                <div><span><i class="berth-color green"></i><b>Dermaga D</b></span><em>3 / 8 slot</em><progress class="green-progress" value="38" max="100"></progress></div>
+              </div>
+              <div class="capacity-total"><span>Total pemakaian</span><strong>68%</strong></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid bottom-grid">
+            <article class="panel-card schedule-mini">
+              <div class="card-heading"><div><span>Live Schedule</span><h3>Kedatangan Berikutnya</h3></div><div class="live-label"><i></i> Real-time</div></div>
+              <div class="mini-table">
+                <div class="table-row table-head"><span>Kapal</span><span>Rute</span><span>ETA</span><span>Status</span></div>
+                <div class="table-row"><span><i class="ship-avatar blue-ship">N</i><b>KM Nusantara</b></span><span>Batam → Jakarta</span><span>21:30</span><span><mark class="status sailing">Berlayar</mark></span></div>
+                <div class="table-row"><span><i class="ship-avatar purple-ship">S</i><b>KM Samudra</b></span><span>Medan → Batam</span><span>22:15</span><span><mark class="status approach">Mendekat</mark></span></div>
+                <div class="table-row"><span><i class="ship-avatar orange-ship">M</i><b>KM Maritim</b></span><span>Jakarta → Batam</span><span>23:40</span><span><mark class="status delayed">Delay 10m</mark></span></div>
+              </div>
+            </article>
+
+            <article class="panel-card activity-card">
+              <div class="card-heading"><div><span>Aktivitas</span><h3>Update Terbaru</h3></div><button class="more-btn">•••</button></div>
+              <div class="activity-list">
+                <div><i class="activity-icon success">✓</i><p><strong>Booking dikonfirmasi</strong><span>Dermaga A • BK-240917-08</span><small>3 menit lalu</small></p></div>
+                <div><i class="activity-icon info">⌖</i><p><strong>Kapal memasuki zona</strong><span>KM Nusantara • Radius 5 NM</span><small>12 menit lalu</small></p></div>
+                <div><i class="activity-icon warning">!</i><p><strong>Pemeriksaan dokumen</strong><span>Manifest MN-8832 • Gate B</span><small>25 menit lalu</small></p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" data-page="booking">
+          <div class="page-header">
+            <div><div class="eyebrow"><span>01</span> SMART BERTH BOOKING</div><h1>Jadwal & Booking Dermaga</h1><p>Atur jadwal sandar dengan pemeriksaan slot otomatis.</p></div>
+            <button class="primary-btn" type="button" id="newBookingButton">＋ Booking Baru</button>
+          </div>
+          <div class="feature-banner cyan-banner">
+            <div><span class="feature-number">01</span><h3>Smart Slot Recommendation</h3><p>Sistem merekomendasikan dermaga berdasarkan ukuran kapal, waktu, dan kapasitas.</p></div>
+            <div class="slot-orbit"><i></i><i></i><i></i><b>AI</b></div>
+          </div>
+          <article class="panel-card">
+            <div class="table-toolbar">
+              <div class="search-box"><span>⌕</span><input id="bookingSearch" placeholder="Cari kapal atau kode booking..."></div>
+              <div class="filter-pills"><button class="active" data-booking-filter="all">Semua</button><button data-booking-filter="confirmed">Terkonfirmasi</button><button data-booking-filter="waiting">Menunggu</button></div>
+            </div>
+            <div class="data-table" id="bookingTable">
+              <div class="data-row data-head"><span>Kode</span><span>Kapal & Rute</span><span>Dermaga</span><span>Jadwal</span><span>Status</span><span>Aksi</span></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="page" data-page="tracking">
+          <div class="page-header">
+            <div><div class="eyebrow"><span>02</span> LIVE VESSEL TRACKING</div><h1>Tracking Kapal Real-Time</h1><p>Pantau posisi, kecepatan, dan estimasi kedatangan kapal.</p></div>
+            <div class="live-big"><i></i> LIVE UPDATE <b id="liveTime">--:--:--</b></div>
+          </div>
+          <div class="tracking-layout">
+            <article class="vessel-map panel-card">
+              <div class="map-toolbar">
+                <div class="search-box dark-search"><span>⌕</span><input id="vesselSearch" placeholder="Cari nama kapal..."></div>
+                <div class="map-tools"><button class="active">2D</button><button id="map3dButton">3D</button><button id="centerMapButton">⌖</button></div>
+              </div>
+              <div class="map-grid" id="mapGrid">
+                <span class="route-line route-one"></span><span class="route-line route-two"></span>
+                <button class="vessel-marker vm1 active" data-vessel="KM Nusantara"><i>▲</i><span>KM Nusantara<small>14.2 kn</small></span></button>
+                <button class="vessel-marker vm2" data-vessel="KM Samudra"><i>▲</i><span>KM Samudra<small>11.8 kn</small></span></button>
+                <button class="vessel-marker vm3" data-vessel="KM Maritim"><i>▲</i><span>KM Maritim<small>9.6 kn</small></span></button>
+                <div class="map-port port-a"><i></i><span>PORT BATAM</span></div>
+                <div class="map-port port-b"><i></i><span>PORT JAKARTA</span></div>
+                <div class="map-coordinate">01°07' N &nbsp; 104°03' E</div>
+                <div class="sonar-effect"></div>
+              </div>
+            </article>
+            <aside class="vessel-detail panel-card">
+              <div class="vessel-photo">
+                <div class="mini-ship-model"><i></i><span></span><b></b></div>
+                <mark>ON SCHEDULE</mark>
+              </div>
+              <span class="detail-label">VESSEL DETAIL</span>
+              <h2 id="vesselName">KM Nusantara</h2>
+              <p id="vesselRoute">Batam → Jakarta</p>
+              <div class="detail-grid">
+                <div><small>KECEPATAN</small><strong id="vesselSpeed">14.2 kn</strong></div>
+                <div><small>JARAK</small><strong id="vesselDistance">24.8 NM</strong></div>
+                <div><small>ETA</small><strong id="vesselEta">21:30</strong></div>
+                <div><small>CUACA</small><strong>28°C ☁</strong></div>
+              </div>
+              <div class="eta-track"><span style="width:72%"></span><i></i></div>
+              <div class="eta-label"><span>Berangkat<br><b>16:45</b></span><span>Tiba<br><b id="vesselEtaBottom">21:30</b></span></div>
+              <button class="primary-btn full-btn" id="followVesselButton">⌖ Ikuti perjalanan</button>
+            </aside>
+          </div>
+          <div class="vessel-cards" id="vesselCards"></div>
+        </section>
+
+        <section class="page" data-page="tickets">
+          <div class="page-header">
+            <div><div class="eyebrow"><span>03</span> DIGITAL GATE ACCESS</div><h1>E-Ticket & QR Validation</h1><p>Tiket digital cepat dengan validasi gerbang dalam hitungan detik.</p></div>
+            <button class="primary-btn operator-action" id="scanTicketButton">▣ Scan Tiket</button>
+          </div>
+          <div class="ticket-layout">
+            <article class="digital-ticket">
+              <div class="ticket-brand"><span class="brand-mark mini"><span></span><span></span><span></span></span><strong>PORTARA</strong><mark>BOARDING PASS</mark></div>
+              <div class="ticket-route">
+                <div><small>FROM</small><strong>BTH</strong><span>Batam</span></div>
+                <div class="route-plane"><span></span><b>⛴</b><span></span></div>
+                <div><small>TO</small><strong>JKT</strong><span>Jakarta</span></div>
+              </div>
+              <div class="ticket-info">
+                <div><small>PASSENGER</small><strong id="ticketPassenger">Daffa Juliansyah</strong></div>
+                <div><small>VESSEL</small><strong>KM Nusantara</strong></div>
+                <div><small>DATE</small><strong>18 SEP 2026</strong></div>
+                <div><small>BOARDING</small><strong>20:45 WIB</strong></div>
+                <div><small>GATE</small><strong>B-02</strong></div>
+                <div><small>SEAT</small><strong>12A</strong></div>
+              </div>
+              <div class="ticket-bottom">
+                <div class="qr-code" id="qrCode" aria-label="Kode QR tiket"></div>
+                <div><small>BOOKING ID</small><strong>PRT-260918-0042</strong><span>Tunjukkan QR di gerbang keberangkatan</span></div>
+                <b class="vertical-code">042889</b>
+              </div>
+            </article>
+            <article class="panel-card validation-card">
+              <span class="feature-number">03</span><h3>Validasi Instan</h3><p>Masukkan kode tiket untuk simulasi pemeriksaan akses.</p>
+              <label>Kode booking</label>
+              <div class="validate-input"><input id="ticketCodeInput" value="PRT-260918-0042"><button id="validateTicketButton">Validasi</button></div>
+              <div class="validation-result" id="validationResult"><i>✓</i><div><strong>Tiket siap divalidasi</strong><span>Status akan muncul di sini</span></div></div>
+              <div class="validation-stats"><div><strong>1.482</strong><span>Tiket hari ini</span></div><div><strong>4.2s</strong><span>Rata-rata scan</span></div></div>
+            </article>
+          </div>
+          <article class="panel-card ticket-history">
+            <div class="card-heading"><div><span>Riwayat</span><h3>Tiket Terbaru</h3></div><button class="text-btn" id="downloadTicketButton">↓ Unduh tiket</button></div>
+            <div class="mini-table">
+              <div class="table-row table-head"><span>Kode Tiket</span><span>Penumpang</span><span>Jadwal</span><span>Gate</span><span>Status</span></div>
+              <div class="table-row"><span><b>PRT-260918-0042</b></span><span>Daffa Juliansyah</span><span>18 Sep • 20:45</span><span>B-02</span><span><mark class="status confirmed">Aktif</mark></span></div>
+              <div class="table-row"><span><b>PRT-260912-0188</b></span><span>Rina Maharani</span><span>12 Sep • 08:15</span><span>A-01</span><span><mark class="status complete">Selesai</mark></span></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="page" data-page="billing">
+          <div class="page-header">
+            <div><div class="eyebrow"><span>04</span> CASHLESS PORT PAYMENT</div><h1>Tagihan Digital</h1><p>Semua transaksi transparan, tercatat, dan mudah dilacak.</p></div>
+            <button class="secondary-btn" id="exportInvoiceButton">↓ Export Laporan</button>
+          </div>
+          <div class="billing-summary">
+            <article class="balance-card">
+              <span>Total tagihan bulan ini</span><strong>Rp 24.850.000</strong><p><b>82%</b> sudah dibayarkan</p>
+              <div class="balance-orbit"><i></i><i></i><i></i></div>
+            </article>
+            <article class="summary-card"><span class="stat-icon green">✓</span><div><small>LUNAS</small><strong>Rp 20,3 jt</strong><span>12 transaksi</span></div></article>
+            <article class="summary-card"><span class="stat-icon orange">!</span><div><small>MENUNGGU</small><strong>Rp 4,55 jt</strong><span>2 transaksi</span></div></article>
+          </div>
+          <article class="panel-card">
+            <div class="table-toolbar">
+              <div class="search-box"><span>⌕</span><input id="invoiceSearch" placeholder="Cari nomor invoice..."></div>
+              <button class="filter-button">≡ Filter</button>
+            </div>
+            <div class="data-table invoices-table" id="invoiceTable"></div>
+          </article>
+        </section>
+
+        <section class="page" data-page="service">
+          <div class="page-header">
+            <div><div class="eyebrow"><span>05</span> INTEGRATED SERVICE HUB</div><h1>Pusat Layanan & Insiden</h1><p>Pengaduan, bantuan, dan laporan operasional dalam satu kanal.</p></div>
+            <button class="primary-btn" id="newReportButton">＋ Buat Laporan</button>
+          </div>
+          <div class="service-grid">
+            <article class="service-card tilt-card" data-service-type="Bantuan Perjalanan"><span class="service-icon cyan">?</span><h3>Bantuan Perjalanan</h3><p>Informasi jadwal, tiket, dan keberangkatan.</p><button>Mulai konsultasi →</button></article>
+            <article class="service-card tilt-card" data-service-type="Pengaduan Layanan"><span class="service-icon violet">✦</span><h3>Pengaduan Layanan</h3><p>Sampaikan masukan dan pantau penyelesaiannya.</p><button>Buat pengaduan →</button></article>
+            <article class="service-card tilt-card" data-service-type="Insiden Operasional"><span class="service-icon orange">!</span><h3>Insiden Operasional</h3><p>Laporan cepat untuk petugas di area pelabuhan.</p><button>Laporkan insiden →</button></article>
+          </div>
+          <article class="panel-card">
+            <div class="card-heading"><div><span>Service Ticket</span><h3>Laporan Aktif</h3></div><div class="sla-chip"><i></i> SLA 98.4%</div></div>
+            <div class="report-list" id="reportList"></div>
+          </article>
+        </section>
+
+        <section class="page" data-page="users">
+          <div class="page-header">
+            <div><div class="eyebrow"><span>ADMIN</span> ROLE-BASED ACCESS</div><h1>Manajemen Pengguna</h1><p>Kelola akun dan hak akses untuk tiga jenis pengguna.</p></div>
+            <button class="primary-btn" id="addUserButton">＋ Tambah User</button>
+          </div>
+          <div class="role-stat-grid">
+            <article><span class="role-icon admin-icon">A</span><div><small>ADMINISTRATOR</small><strong>3 akun</strong><p>Akses penuh sistem</p></div></article>
+            <article><span class="role-icon customer-icon">C</span><div><small>CUSTOMER</small><strong>1.248 akun</strong><p>Layanan & transaksi</p></div></article>
+            <article><span class="role-icon operator-icon">P</span><div><small>PETUGAS</small><strong>42 akun</strong><p>Operasional lapangan</p></div></article>
+          </div>
+          <article class="panel-card">
+            <div class="table-toolbar"><div class="search-box"><span>⌕</span><input id="userSearch" placeholder="Cari nama atau email..."></div><button class="filter-button">≡ Semua Role</button></div>
+            <div class="data-table users-table" id="userTable"></div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal glass-card" id="bookingModal">
+      <div class="modal-head"><div><span>SMART BOOKING</span><h2>Booking Dermaga Baru</h2></div><button class="modal-close" type="button">×</button></div>
+      <form id="bookingForm">
+        <div class="form-grid">
+          <label>Nama kapal<input name="ship" required placeholder="Contoh: KM Bahari"></label>
+          <label>Nomor registrasi<input name="registration" required placeholder="IMO / ID Kapal"></label>
+          <label>Pelabuhan asal<input name="origin" required placeholder="Contoh: Jakarta"></label>
+          <label>Tujuan<input name="destination" required placeholder="Contoh: Batam"></label>
+          <label>Tanggal sandar<input name="date" required type="date"></label>
+          <label>Waktu sandar<input name="time" required type="time"></label>
+          <label>Dermaga<select name="berth"><option>Rekomendasi Otomatis</option><option>Dermaga A</option><option>Dermaga B</option><option>Dermaga C</option><option>Dermaga D</option></select></label>
+          <label>Jenis layanan<select name="service"><option>Penumpang</option><option>Kargo</option><option>Logistik</option><option>Perawatan</option></select></label>
+        </div>
+        <div class="ai-recommendation"><i>✦</i><div><strong>Rekomendasi Smart Slot aktif</strong><span>Sistem akan memilih slot paling efisien saat booking dikirim.</span></div></div>
+        <div class="modal-actions"><button class="secondary-btn modal-cancel" type="button">Batal</button><button class="primary-btn" type="submit">Kirim Booking →</button></div>
+      </form>
+    </div>
+
+    <div class="modal glass-card" id="reportModal">
+      <div class="modal-head"><div><span>SERVICE CENTER</span><h2>Buat Laporan Baru</h2></div><button class="modal-close" type="button">×</button></div>
+      <form id="reportForm">
+        <div class="form-grid single-mobile">
+          <label>Jenis laporan<select name="type"><option>Pengaduan Layanan</option><option>Bantuan Perjalanan</option><option>Insiden Operasional</option></select></label>
+          <label>Prioritas<select name="priority"><option>Normal</option><option>Penting</option><option>Darurat</option></select></label>
+          <label class="full-field">Judul laporan<input name="title" required placeholder="Tuliskan ringkasan masalah"></label>
+          <label class="full-field">Detail kejadian<textarea name="description" required rows="4" placeholder="Jelaskan lokasi, waktu, dan detail laporan..."></textarea></label>
+        </div>
+        <div class="modal-actions"><button class="secondary-btn modal-cancel" type="button">Batal</button><button class="primary-btn" type="submit">Kirim Laporan →</button></div>
+      </form>
+    </div>
+
+    <div class="modal scan-modal glass-card" id="scanModal">
+      <div class="modal-head"><div><span>QR SCANNER</span><h2>Scan Tiket</h2></div><button class="modal-close" type="button">×</button></div>
+      <div class="scanner-view"><div class="scanner-corners"><i></i><i></i><i></i><i></i><span></span><b>▣</b></div><p>Arahkan QR tiket ke area pemindai</p></div>
+      <button class="primary-btn full-btn" id="simulateScanButton">Simulasikan Scan</button>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
